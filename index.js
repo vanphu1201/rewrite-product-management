@@ -20,6 +20,7 @@ app.use(express.static('public'));
 
 //route
 const Route = require("./routes/client/index");
+const RouteAdmin = require("./routes/admin/index.router");
 // end route
 
 // database
@@ -28,14 +29,7 @@ database();
 
 
 Route(app);
-
-app.get('/admin/dashboard', (req, res) => {
-  res.render('admin/pages/dashboard/index.pug', { title: 'Dashboard', message: 'Trang tong quan' });
-});
-
-app.get('/admin/products', (req, res) => {
-  res.render('admin/pages/products/index.pug', { title: 'Products', message: 'Trang quan ly san pham' });
-});
+RouteAdmin(app);
 
 
 app.listen(port, () => {
