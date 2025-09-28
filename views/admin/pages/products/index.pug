@@ -1,6 +1,8 @@
 extends ../../layouts/default
+include ../../mixins/filter-status.pug
 block main
   h1 Trang quan ly danh sach san pham
+  +filter-status(filterStatus)
   table.table.table-hover.table-sm
       thead
           tr
@@ -24,7 +26,10 @@ block main
               td #{item.title}
               td #{item.price}$
               td
-                a(href="#" class="badge badge-success") Hoạt động
+                if (item.status == "active")
+                  a(href="#" class="badge badge-success") Hoạt động
+                else 
+                  a(href="#" class="badge badge-danger") Dừng hoạt động
               td
                 button(class="btn btn-warning btn-sm") Sửa
                 button(class="btn btn-danger btn-sm ml-1") Xóa
