@@ -7,11 +7,7 @@ const app = express();
 const port = process.env.PORT;
 
 
-// mongose
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/test')
-  .then(() => console.log('Connected!'));
-// end mongoose
+const database = require("./configs/database");
 
 // pug
 app.set('views', './views');
@@ -25,6 +21,10 @@ app.use(express.static('public'));
 //route
 const Route = require("./routes/client/index");
 // end route
+
+// database
+database();
+// end database
 
 
 Route(app);
