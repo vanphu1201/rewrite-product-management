@@ -22,5 +22,8 @@ module.exports = (query, find) => {
         find.status = status;
     }
 
-    return filterStatus
+    return {
+        filterStatus: filterStatus,
+        find: find
+    }
 }

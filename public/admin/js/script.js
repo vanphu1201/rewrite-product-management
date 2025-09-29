@@ -55,3 +55,38 @@ if (formSearch) {
     }
 }
 // end form search
+
+
+
+// pagination
+const pages = document.querySelectorAll("[page]");
+if (pages) {
+    let url = new URL(window.location.href);
+    pages.forEach((btnPage) => {
+        btnPage.addEventListener("click", () => {
+            const currentPage = btnPage.getAttribute("page");
+            url.searchParams.set("page", currentPage);
+            window.location.href = url.href;
+        });
+    });
+}
+
+const changePages = document.querySelectorAll("[change]");
+if (changePages) {
+    let url = new URL(window.location.href);
+    changePages.forEach((changePage) => {
+        changePage.addEventListener("click", () => {
+            if (changePage.getAttribute("change") == "next") {
+                const nextPage = parseInt(url.searchParams.get("page")) + 1;
+                url.searchParams.set("page", nextPage);
+                window.location.href = url.href;
+            } else {
+                const backPage = parseInt(url.searchParams.get("page")) -1;
+                url.searchParams.set("page", backPage);
+                window.location.href = url.href;
+            }
+            
+        })
+    })
+}
+// end pagination
