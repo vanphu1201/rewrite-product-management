@@ -20,8 +20,6 @@ filterStatus.forEach( btn => {
     let url = new URL(window.location.href);
     if (url.searchParams.get("status")) {
         if (btn.getAttribute("status") == url.searchParams.get("status")) {
-        console.log(url.searchParams.get("status"))
-        console.log(btn.getAttribute("status"))
         btn.classList.add("active");
         }
     } else {
@@ -30,3 +28,30 @@ filterStatus.forEach( btn => {
     
 })
 // end filterStatus
+
+
+// form search
+const formSearch = document.querySelector("#form-search");
+if (formSearch) {
+    let url = new URL(window.location.href);
+    formSearch.addEventListener("submit", e => {
+        e.preventDefault();
+    });
+    
+    const inputFormSearch = document.querySelector("[input-form-search]");
+    if (inputFormSearch) {
+        inputFormSearch.addEventListener("click", () => {
+            const btnFormSearch = document.querySelector("[btn-form-search]");
+            const keyword = btnFormSearch.value;
+            if (keyword) {
+                url.searchParams.set("keyword", keyword);
+                window.location.href = url.href;
+            } else {
+                url.searchParams.delete("keyword");
+                window.location.href = url.href;
+            }
+            
+        });
+    }
+}
+// end form search
