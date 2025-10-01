@@ -60,14 +60,14 @@ if (formSearch) {
 
 // pagination
 const pages = document.querySelectorAll("[page]");
-if (pages) {
+if (pages.length) {
     let url = new URL(window.location.href);
     pages.forEach((btnPage) => {
-        btnPage.addEventListener("click", () => {
+        btnPage.addEventListener("click", e => {
             const currentPage = btnPage.getAttribute("page");
             url.searchParams.set("page", currentPage);
             window.location.href = url.href;
-        });
+        })
     });
 }
 

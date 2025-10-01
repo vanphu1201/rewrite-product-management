@@ -1,5 +1,6 @@
 extends ../../layouts/default
 include ../../mixins/filter-status.pug
+include ../../mixins/pagination.pug
 block main
   .card.mb-3
   .card-header Bộ lọc và Tìm kiếm
@@ -52,15 +53,5 @@ block main
                       button(class="btn btn-warning btn-sm") Sửa
                       button(class="btn btn-danger btn-sm ml-1") Xóa
   //- pagination
-  nav
-    ul(class="pagination")
-      if (paginationObject.currentPage > 1)
-        li(class="page-item" change="back")
-          button(class="page-link") Trang trước
-      - for (let i = 1; i <= paginationObject.totalPage; i++)
-        li(class=`page-item ${paginationObject.currentPage == i ? "active" : ""}` page=i)
-          button(class="page-link") #{i}
-      if (paginationObject.currentPage < paginationObject.totalPage)
-        li(class="page-item")
-          button(class="page-link" change="next") Kế tiếp
+  +pagination(paginationObject)
   //- end pagination
