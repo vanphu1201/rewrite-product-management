@@ -3,6 +3,7 @@ const filterStatusHelper = require("../../helpers/filterStatus.helper");
 const formSearchHelper = require("../../helpers/formSearch.helper");
 const paginationHelper = require("../../helpers/pagination.helper");
 
+// [GET]/admin/products
 module.exports.index = async (req, res) => {
 
   let find = {
@@ -36,4 +37,12 @@ module.exports.index = async (req, res) => {
     keyword: formSearch,
     paginationObject: paginationObject
   });
+}
+
+// [POST]/admin/products/change-multi
+module.exports.changMulti = async (req, res ) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split("-");
+  await Product.updateMany({_id: {$in: ids}}, {status: type})
+  res.redirect(req.headers.referer);
 }

@@ -1,6 +1,7 @@
 extends ../../layouts/default
 include ../../mixins/filter-status.pug
 include ../../mixins/pagination.pug
+include ../../mixins/multi-change.pug
 block main
   .card.mb-3
   .card-header Bộ lọc và Tìm kiếm
@@ -22,36 +23,45 @@ block main
   .card.mb-3
     .card-header Danh sách
     .card-body
-        table.table.table-hover.table-sm
-            thead
+      +multiChange()
+      table.table.table-hover.table-sm
+          thead
+            tr
+              th
+                input(type="checkbox" name="checkall")
+              th STT
+              th Hình ảnh
+              th Tiêu đề
+              th Giá
+              th Trạng thái
+              th Hành động
+          tbody
+            each item, index in products
               tr
-                th STT
-                th Hình ảnh
-                th Tiêu đề
-                th Giá
-                th Trạng thái
-                th Hành động
-            tbody
-              each item, index in products
-                tr
-                  td #{paginationObject.skip + index + 1}
-                    td
-                        img(
-                            src=item.thumbnail
-                            alt=item.title
-                            width="100px"
-                            height="auto"
-                        )
-                    td #{item.title}
-                    td #{item.price}$
-                    td
-                      if (item.status == "active")
-                        a(href="#" class="badge badge-success") Hoạt động
-                      else 
-                        a(href="#" class="badge badge-danger") Dừng hoạt động
-                    td
-                      button(class="btn btn-warning btn-sm") Sửa
-                      button(class="btn btn-danger btn-sm ml-1") Xóa
+                td
+                  input(
+                      type="checkbox"
+                      name="id"
+                      value=item.id
+                  )
+                td #{paginationObject.skip + index + 1}
+                  td
+                      img(
+                          src=item.thumbnail
+                          alt=item.title
+                          width="100px"
+                          height="auto"
+                      )
+                  td #{item.title}
+                  td #{item.price}$
+                  td
+                    if (item.status == "active")
+                      a(href="#" class="badge badge-success") Hoạt động
+                    else 
+                      a(href="#" class="badge badge-danger") Dừng hoạt động
+                  td
+                    button(class="btn btn-warning btn-sm") Sửa
+                    button(class="btn btn-danger btn-sm ml-1") Xóa
   //- pagination
   +pagination(paginationObject)
   //- end pagination

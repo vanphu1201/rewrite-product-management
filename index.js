@@ -3,9 +3,23 @@ require('dotenv').config();
 // end dotenv
 
 const express = require('express');
+
+// body parse
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+// end body parse
+
 const app = express();
 const port = process.env.PORT;
+// method overwrite
+app.use(methodOverride('X-HTTP-Method-Override'));
+// end method overwrite
 
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+// end parse application/x-www-form-urlencoded
 
 const database = require("./configs/database");
 
@@ -27,7 +41,7 @@ const RouteAdmin = require("./routes/admin/index.router");
 database();
 // end database
 
-
+// route
 Route(app);
 RouteAdmin(app);
 
