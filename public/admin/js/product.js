@@ -54,3 +54,23 @@ if (formChangeMulti) {
 // end select multi status
 
 // end form change status
+
+
+
+// change status single
+const currentStatusItems = document.querySelectorAll("[data-status]");
+const formChangeStatus = document.querySelector("[form-change-status]");
+
+if (currentStatusItems.length) {
+    currentStatusItems.forEach(currentStatusItem => {
+        currentStatusItem.addEventListener("click", () => {
+            const currentStatus = currentStatusItem.getAttribute("data-status");
+            const id = currentStatusItem.getAttribute("data-id");
+            const changeStatus = currentStatus == "active" ? "inactive" : "active";
+            const action = `${formChangeStatus.getAttribute("path")}/${id}/${changeStatus}?_method=PATCH`;
+            formChangeStatus.action = action;
+            formChangeStatus.submit();
+        })
+    })
+}
+// end change status single

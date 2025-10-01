@@ -46,3 +46,11 @@ module.exports.changMulti = async (req, res ) => {
   await Product.updateMany({_id: {$in: ids}}, {status: type})
   res.redirect(req.headers.referer);
 }
+
+// [POST]/admin/products/change-status/:id/:status
+module.exports.changeStatus = async (req, res ) => {
+  const id = req.params.id;
+  const status = req.params.status;
+  await Product.updateOne({_id: id}, {status: status})
+  res.redirect(req.headers.referer);
+}
