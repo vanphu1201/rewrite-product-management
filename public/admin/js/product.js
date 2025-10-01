@@ -41,13 +41,18 @@ if (formChangeMulti) {
     formChangeMulti.addEventListener("submit", (e) => {
         e.preventDefault();
         const inputIdsChecked = document.querySelectorAll('input[name="id"]:checked');
-        inputIdsChecked.forEach(inputIdChecked => {
-            const id = inputIdChecked.value;
-            ids.push(id)
-        })
-        const inputIds = formChangeMulti.querySelector('input[name="ids"]');
-        inputIds.value = ids.join("-")
-        formChangeMulti.submit();
+        if (inputIdsChecked.length) {
+            inputIdsChecked.forEach(inputIdChecked => {
+                const id = inputIdChecked.value;
+                ids.push(id)
+            })
+            const inputIds = formChangeMulti.querySelector('input[name="ids"]');
+            inputIds.value = ids.join("-")
+            formChangeMulti.submit();
+        } else {
+            alert("Vui lòng chọn ít nhất 1 sản phẩm")
+        }
+        
 
     })
 }
