@@ -61,7 +61,7 @@ block main
                       a(href="javascript:;" class="badge badge-danger" data-status=item.status data-id=item.id) Dừng hoạt động
                   td
                     button(class="btn btn-warning btn-sm") Sửa
-                    button(class="btn btn-danger btn-sm ml-1") Xóa
+                    button(class="btn btn-danger btn-sm ml-1" delete data-id=item.id) Xóa
   //- pagination
   +pagination(paginationObject)
   //- end pagination
@@ -73,4 +73,11 @@ block main
         method="POST"
         path="/admin/products/change-status"
         form-change-status
-    )
+  )
+
+  form(
+        action=""
+        method="POST"
+        path="/admin/products/delete"
+        form-delete-product
+  )

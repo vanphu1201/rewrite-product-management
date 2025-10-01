@@ -9,4 +9,6 @@ route.post('/change-status/:id/:status', controller.changeStatus);
 
 route.post('/change-multi', controller.changMulti);
 
+route.post('/delete/:id', controller.deleteProduct);
+
 module.exports = route;

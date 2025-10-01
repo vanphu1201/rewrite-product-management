@@ -2,6 +2,7 @@ const Product = require("../../model/products.model");
 const filterStatusHelper = require("../../helpers/filterStatus.helper");
 const formSearchHelper = require("../../helpers/formSearch.helper");
 const paginationHelper = require("../../helpers/pagination.helper");
+const { now } = require("mongoose");
 
 // [GET]/admin/products
 module.exports.index = async (req, res) => {
@@ -43,7 +44,7 @@ module.exports.index = async (req, res) => {
 module.exports.changMulti = async (req, res ) => {
   const type = req.body.type;
   const ids = req.body.ids.split("-");
-  await Product.updateMany({_id: {$in: ids}}, {status: type})
+  await Product.updateMany({_id: {$in: ids}}, {status: type});
   res.redirect(req.headers.referer);
 }
 
@@ -51,6 +52,13 @@ module.exports.changMulti = async (req, res ) => {
 module.exports.changeStatus = async (req, res ) => {
   const id = req.params.id;
   const status = req.params.status;
-  await Product.updateOne({_id: id}, {status: status})
+  await Product.updateOne({_id: id}, {status: status});
+  res.redirect(req.headers.referer);
+}
+
+// [DELETE]/admin/products/delete/:id
+module.exports.deleteProduct = async (req, res ) => {
+  const id = req.params.id;
+  await Product.updateOne({_id: id}, {deleted: true});
   res.redirect(req.headers.referer);
 }

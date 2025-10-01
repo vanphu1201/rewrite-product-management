@@ -79,3 +79,22 @@ if (currentStatusItems.length) {
     })
 }
 // end change status single
+
+
+
+// delete product
+const deleteProducts = document.querySelectorAll("[delete]");
+const formDeleteProduct = document.querySelector("[form-delete-product]");
+
+if (deleteProducts.length)  {
+    let url = new URL(window.location.href);
+    deleteProducts.forEach(deteleProduct => {
+        deteleProduct.addEventListener("click", () => {
+            const id = deteleProduct.getAttribute("data-id");
+            const path = formDeleteProduct.getAttribute("path");
+            formDeleteProduct.action = `${path}/${id}?_method=DELETE`;
+            formDeleteProduct.submit();
+        });
+    });
+}
+// end delete product
