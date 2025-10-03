@@ -2,6 +2,10 @@
 require('dotenv').config();
 // end dotenv
 
+// express-flash
+const flash = require('express-flash');
+// end express-flash
+
 const express = require('express');
 
 // body parse
@@ -9,8 +13,20 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 // end body parse
 
+// cookie-parse and express-section
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+// cookie-parse and express-section
+
 const app = express();
 const port = process.env.PORT;
+
+// express-flash
+app.use(cookieParser('keyboard cat'));
+app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(flash());
+// end express-flash
+
 // method overwrite
 app.use(methodOverride('X-HTTP-Method-Override'));
 // end method overwrite

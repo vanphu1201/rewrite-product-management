@@ -48,14 +48,17 @@ module.exports.changMulti = async (req, res ) => {
   switch (type) {
     case "active":
       await Product.updateMany({_id: {$in: ids}}, {status: "active"});
+      req.flash('success', `Cập nhập thành công ${ids.length} sản phẩm`);
       res.redirect(req.headers.referer);
       break;
     case "inactive":
       await Product.updateMany({_id: {$in: ids}}, {status: "inactive"});
+      req.flash('success', `Cập nhập thành công ${ids.length} sản phẩm`);
       res.redirect(req.headers.referer);
       break;
     case "delete":
       await Product.updateMany({_id: {$in: ids}}, {deleted: true});
+      req.flash('danger', `Xóa thành công ${ids.length} sản phẩm`);
       res.redirect(req.headers.referer);
       break;
     case "change-position":
@@ -63,6 +66,7 @@ module.exports.changMulti = async (req, res ) => {
         const [id, position] = value.split("-");
         await Product.updateOne({_id: id}, {position: parseInt(position)});
       }
+      req.flash('success', `Thay đổi vị trí thành công ${ids.length} sản phẩm`);
       res.redirect(req.headers.referer);
       break;
     default:
@@ -75,6 +79,7 @@ module.exports.changeStatus = async (req, res ) => {
   const id = req.params.id;
   const status = req.params.status;
   await Product.updateOne({_id: id}, {status: status});
+  req.flash('success', 'Cập nhập sản phẩm thành công');
   res.redirect(req.headers.referer);
 }
 
@@ -82,5 +87,6 @@ module.exports.changeStatus = async (req, res ) => {
 module.exports.deleteProduct = async (req, res ) => {
   const id = req.params.id;
   await Product.updateOne({_id: id}, {deleted: true});
+  req.flash('danger', 'Xóa sản phẩm thành công');
   res.redirect(req.headers.referer);
 }

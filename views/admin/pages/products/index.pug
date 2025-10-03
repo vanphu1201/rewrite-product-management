@@ -2,7 +2,10 @@ extends ../../layouts/default
 include ../../mixins/filter-status.pug
 include ../../mixins/pagination.pug
 include ../../mixins/multi-change.pug
+include ../../mixins/alert.pug
 block main
+  +alertSuccess(5000)
+  +alertDanger(5000)
   .card.mb-3
   .card-header Bộ lọc và Tìm kiếm
   .card-body
