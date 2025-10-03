@@ -29,7 +29,8 @@ module.exports.index = async (req, res) => {
   const products = await Product
     .find(find)
     .limit(paginationObject.limit)
-    .skip(paginationObject.skip);
+    .skip(paginationObject.skip)
+    .sort({position: "asc"});
 
   res.render('admin/pages/products/index.pug', {
     title: 'Products',
@@ -43,9 +44,30 @@ module.exports.index = async (req, res) => {
 // [POST]/admin/products/change-multi
 module.exports.changMulti = async (req, res ) => {
   const type = req.body.type;
-  const ids = req.body.ids.split("-");
-  await Product.updateMany({_id: {$in: ids}}, {status: type});
-  res.redirect(req.headers.referer);
+  const ids = req.body.ids.split(", ");
+  switch (type) {
+    case "active":
+      await Product.updateMany({_id: {$in: ids}}, {status: "active"});
+      res.redirect(req.headers.referer);
+      break;
+    case "inactive":
+      await Product.updateMany({_id: {$in: ids}}, {status: "inactive"});
+      res.redirect(req.headers.referer);
+      break;
+    case "delete":
+      await Product.updateMany({_id: {$in: ids}}, {deleted: true});
+      res.redirect(req.headers.referer);
+      break;
+    case "change-position":
+      for (let value of ids) {
+        const [id, position] = value.split("-");
+        await Product.updateOne({_id: id}, {position: parseInt(position)});
+      }
+      res.redirect(req.headers.referer);
+      break;
+    default:
+      break
+  }
 }
 
 // [POST]/admin/products/change-status/:id/:status

@@ -41,13 +41,27 @@ if (formChangeMulti) {
     formChangeMulti.addEventListener("submit", (e) => {
         e.preventDefault();
         const inputIdsChecked = document.querySelectorAll('input[name="id"]:checked');
+        const typeChange = e.target.elements.type.value;
+
         if (inputIdsChecked.length) {
+            if (typeChange == "delete") {
+                const conform = alert("Bạn có chắc chắn muốn xóa sản phẩm!");
+                if (!conform) {
+                    return;
+                }
+            }
+            
             inputIdsChecked.forEach(inputIdChecked => {
                 const id = inputIdChecked.value;
-                ids.push(id)
-            })
+                if (typeChange == "change-position") {
+                    const position = inputIdChecked.closest("tr").querySelector("input[name='position']").value;
+                    ids.push(`${id}-${position}`);
+                } else {
+                    ids.push(id);
+                }
+            });
             const inputIds = formChangeMulti.querySelector('input[name="ids"]');
-            inputIds.value = ids.join("-")
+            inputIds.value = ids.join(", ");
             formChangeMulti.submit();
         } else {
             alert("Vui lòng chọn ít nhất 1 sản phẩm")
