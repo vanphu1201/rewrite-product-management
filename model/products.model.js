@@ -9,7 +9,12 @@ const schema = new mongoose.Schema({
     thumbnail: String,
     status: String,
     position: Number,
-    deleted: Boolean
+    deleted: {
+        type: Boolean,
+        default: false
+    },
+    created_at: { type: Date, required: true, default: Date.now }
+
 });
 
 const Product = mongoose.model('Product', schema, 'products');

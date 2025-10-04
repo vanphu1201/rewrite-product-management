@@ -90,3 +90,29 @@ module.exports.deleteProduct = async (req, res ) => {
   req.flash('danger', 'Xóa sản phẩm thành công');
   res.redirect(req.headers.referer);
 }
+
+
+// [GET]/admin/products/create
+module.exports.create = async (req, res ) => {
+  res.render('admin/pages/products/create.pug', {
+    title: 'Create product'
+  });
+}
+
+// [POST]/admin/products/create
+module.exports.createPOST = async (req, res ) => {
+  
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+  if (req.body.position) {
+    req.body.position = parseInt(req.body.position);
+  } else {
+    req.body.position = 1
+  }
+  console.log(req.body)
+
+  const newProduct = new Product(req.body);
+  await newProduct.save();
+  res.redirect("/admin/products");
+}

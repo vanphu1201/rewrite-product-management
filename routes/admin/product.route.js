@@ -11,4 +11,8 @@ route.post('/change-multi', controller.changMulti);
 
 route.post('/delete/:id', controller.deleteProduct);
 
+route.get('/create', controller.create);
+
+route.post('/create', controller.createPOST);
+
 module.exports = route;
