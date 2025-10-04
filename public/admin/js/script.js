@@ -105,5 +105,14 @@ if (showAlert) {
         showAlert.classList.add("alert-hidden");
     })
 }
-
 // end alert
+
+
+// edit product
+/* const editItems = document.querySelectorAll("a[edit]");
+if (editItems) {
+    editItems.forEach(editItem => {
+        editItem.addEventListener("click", () => {
+        })
+    })
+} */

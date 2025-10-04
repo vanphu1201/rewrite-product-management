@@ -110,9 +110,34 @@ module.exports.createPOST = async (req, res ) => {
   } else {
     req.body.position = 1
   }
-  console.log(req.body)
 
   const newProduct = new Product(req.body);
   await newProduct.save();
+  res.redirect("/admin/products");
+}
+
+
+// [GET]/admin/products/edit/:id
+module.exports.edit = async (req, res ) => {
+  const product = await Product.find({_id: req.params.id});
+  console.log(product)
+  res.render('admin/pages/products/edit.pug', {
+    title: 'Edit product',
+    id: req.params.id,
+    product: product[0]
+  });
+}
+
+// [POST]/admin/products/edit/:id
+module.exports.editPOST = async (req, res ) => {
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+  if (req.body.position) {
+    req.body.position = parseInt(req.body.position);
+  } else {
+    req.body.position = 1;
+  }
+  await Product.updateOne({_id: req.params.id}, req.body);
   res.redirect("/admin/products");
 }

@@ -15,4 +15,8 @@ route.get('/create', controller.create);
 
 route.post('/create', controller.createPOST);
 
+route.get('/edit/:id', controller.edit);
+
+route.post('/edit/:id', controller.editPOST);
+
 module.exports = route;
