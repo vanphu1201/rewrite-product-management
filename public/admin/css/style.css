@@ -783,3 +783,19 @@ input[type="checkbox"] {
   border-radius: 50%;
   cursor: pointer;
 }
+
+
+/* preview upload image*/
+#image-preview {
+  display: block;           /* đảm bảo xuống dòng */
+  max-width: 200px;         /* giới hạn chiều rộng tối đa */
+  max-height: 200px;        /* giới hạn chiều cao tối đa */
+  width: auto;              /* tự co theo tỉ lệ */
+  height: auto;             /* tự co theo tỉ lệ */
+  object-fit: contain;      /* giữ đúng tỉ lệ ảnh */
+  border: 1px solid #ccc;   /* viền nhẹ */
+  border-radius: 6px;       /* bo góc cho đẹp */
+  margin-top: 10px;
+}
+
+/* end preview upload image*/

@@ -112,3 +112,19 @@ if (deleteProducts.length)  {
     });
 }
 // end delete product
+
+
+// upload image
+const imgInput = document.querySelector("#upload-img-input");
+const imgPreview = document.querySelector("#image-preview");
+if (imgInput) {
+    imgInput.addEventListener("change", e => {
+        const file = e.target.files[0]
+        if (file) {
+            imgPreview.src = URL.createObjectURL(file)
+        }
+        imgPreview.removeAttribute("hidden");
+    })
+    
+}
+// end upload image

@@ -4,6 +4,7 @@ const formSearchHelper = require("../../helpers/formSearch.helper");
 const paginationHelper = require("../../helpers/pagination.helper");
 const { now } = require("mongoose");
 
+
 // [GET]/admin/products
 module.exports.index = async (req, res) => {
 
@@ -110,7 +111,9 @@ module.exports.createPOST = async (req, res ) => {
   } else {
     req.body.position = 1
   }
-
+  if (req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+  }
   const newProduct = new Product(req.body);
   await newProduct.save();
   res.redirect("/admin/products");
@@ -120,7 +123,6 @@ module.exports.createPOST = async (req, res ) => {
 // [GET]/admin/products/edit/:id
 module.exports.edit = async (req, res ) => {
   const product = await Product.find({_id: req.params.id});
-  console.log(product)
   res.render('admin/pages/products/edit.pug', {
     title: 'Edit product',
     id: req.params.id,
@@ -137,6 +139,9 @@ module.exports.editPOST = async (req, res ) => {
     req.body.position = parseInt(req.body.position);
   } else {
     req.body.position = 1;
+  }
+  if (req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
   }
   await Product.updateOne({_id: req.params.id}, req.body);
   res.redirect("/admin/products");

@@ -34,7 +34,8 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // end parse application/x-www-form-urlencoded
 
 const database = require("./configs/database");
