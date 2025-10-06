@@ -1,5 +1,7 @@
 const multer  = require('multer');
-const upload = multer({ dest: './public/uploads/' });
+const multerStorage = require("../../helpers/multerStorage");
+const upload = multer({ storage: multerStorage() });
+
 
 
 const express = require("express");
