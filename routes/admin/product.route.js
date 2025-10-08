@@ -1,6 +1,9 @@
 const multer  = require('multer');
-const multerStorage = require("../../helpers/multerStorage");
-const upload = multer({ storage: multerStorage() });
+const upload = multer();
+
+// upload cloud
+const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
+// end upload cloud
 
 
 
@@ -20,7 +23,8 @@ route.post('/delete/:id', controller.deleteProduct);
 route.get('/create', controller.create);
 
 route.post('/create', 
-    upload.single('thumbnail'), 
+    upload.single('thumbnail'),
+    uploadCloud.upload,
     controller.createPOST
 );
 
@@ -28,6 +32,7 @@ route.get('/edit/:id', controller.edit);
 
 route.post('/edit/:id', 
     upload.single('thumbnail'), 
+    uploadCloud.upload,
     controller.editPOST
 );
 

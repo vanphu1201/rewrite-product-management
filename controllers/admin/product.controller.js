@@ -111,9 +111,7 @@ module.exports.createPOST = async (req, res ) => {
   } else {
     req.body.position = 1
   }
-  if (req.file) {
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
-  }
+  
   const newProduct = new Product(req.body);
   await newProduct.save();
   res.redirect("/admin/products");
@@ -140,9 +138,7 @@ module.exports.editPOST = async (req, res ) => {
   } else {
     req.body.position = 1;
   }
-  if (req.file) {
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
-  }
+  
   await Product.updateOne({_id: req.params.id}, req.body);
   res.redirect("/admin/products");
 }
