@@ -41,12 +41,12 @@ app.use(bodyParser.json());
 const database = require("./configs/database");
 
 // pug
-app.set('views', './views');
+app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 // end pug
 
 // static public file
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}/public`));
 // end static public file
 
 //route
