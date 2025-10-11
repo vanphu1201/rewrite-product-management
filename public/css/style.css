@@ -128,3 +128,21 @@
 }
 
 /* End product-item */
+
+a {
+  text-decoration: none; /* bỏ gạch chân */
+  color: inherit; /* giữ nguyên màu chữ bên trong */
+  outline: none; /* bỏ viền khi focus */
+  border: none; /* phòng trường hợp có border */
+}
+
+/* Khi người dùng click hoặc focus vào link */
+a:focus,
+a:active,
+a:hover {
+  text-decoration: none;
+  outline: none;
+  border: none;
+  color: inherit;
+}
+ 

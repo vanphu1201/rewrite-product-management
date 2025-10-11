@@ -15,7 +15,7 @@ const schema = new mongoose.Schema({
         default: false
     },
     created_at: { type: Date, required: true, default: Date.now },
-    slug: { type: String, slug: "title", unique: true }
+    slug: { type: String, slug: "title", unique: true}
 
 });
 
