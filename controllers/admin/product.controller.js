@@ -88,7 +88,7 @@ module.exports.changeStatus = async (req, res ) => {
 module.exports.deleteProduct = async (req, res ) => {
   const id = req.params.id;
   await Product.updateOne({_id: id}, {deleted: true});
-  req.flash('danger', 'Xóa sản phẩm thành công');
+  req.flash('success', 'Xóa sản phẩm thành công');
   res.redirect(req.headers.referer);
 }
 
@@ -141,4 +141,13 @@ module.exports.editPOST = async (req, res ) => {
   
   await Product.updateOne({_id: req.params.id}, req.body);
   res.redirect("/admin/products");
+}
+
+
+// [GET]/admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+  const productDetail = await Product.findOne({_id: req.params.id});
+  res.render('admin/pages/products/detail.pug', {
+    product: productDetail
+  })
 }

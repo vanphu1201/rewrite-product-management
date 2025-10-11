@@ -5,6 +5,10 @@ const upload = multer();
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
 // end upload cloud
 
+// validate
+const validate = require("../../validates/admin/product.validate");
+// end validate
+
 
 
 const express = require("express");
@@ -25,6 +29,7 @@ route.get('/create', controller.create);
 route.post('/create', 
     upload.single('thumbnail'),
     uploadCloud.upload,
+    validate.createPOST,
     controller.createPOST
 );
 
@@ -33,7 +38,10 @@ route.get('/edit/:id', controller.edit);
 route.post('/edit/:id', 
     upload.single('thumbnail'), 
     uploadCloud.upload,
+    validate.createPOST,
     controller.editPOST
 );
+
+route.get('/detail/:id', controller.detail)
 
 module.exports = route;
