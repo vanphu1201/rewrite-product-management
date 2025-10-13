@@ -142,12 +142,28 @@ if (sort) {
     // sort select
     sortSelect.addEventListener("change", (e) => {
         const value = e.target.value;
-        const [sortKey, sortValue] = value.split("-")
+        const [sortKey, sortValue] = value.split("-");
         url.searchParams.set("sortKey", sortKey);
         url.searchParams.set("sortValue", sortValue);
         window.location.href = url.href;
+
     })
     // end sort select
-    
+
+    // sort clear
+    sortClear.addEventListener("click", () => {
+        url.searchParams.delete("sortKey");
+        url.searchParams.delete("sortValue");
+        window.location.href = url.href;
+    })
+    // end sort clear
+
+    // selected option
+    const sortKey = url.searchParams.get("sortKey");
+    const sortValue = url.searchParams.get("sortValue");
+    const stringSort = `${sortKey}-${sortValue}`;
+    const optionSelected = document.querySelector(`option[value='${stringSort}']`);
+    optionSelected.selected = true
+    // end selected option
 }
 // end sort
