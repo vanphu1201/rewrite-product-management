@@ -2,6 +2,8 @@
 require('dotenv').config();
 // end dotenv
 
+const path = require('path');
+
 // express-flash
 const flash = require('express-flash');
 // end express-flash
@@ -48,6 +50,10 @@ app.set('view engine', 'pug');
 // static public file
 app.use(express.static(`${__dirname}/public`));
 // end static public file
+
+// tinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+// end tinyMCE
 
 //route
 const Route = require("./routes/client/index");

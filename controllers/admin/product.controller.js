@@ -155,7 +155,6 @@ module.exports.editPOST = async (req, res ) => {
 // [GET]/admin/products/detail/:id
 module.exports.detail = async (req, res) => {
   const productDetail = await Product.findOne({_id: req.params.id});
-  console.log(productDetail)
   res.render('admin/pages/products/detail.pug', {
     product: productDetail
   })
