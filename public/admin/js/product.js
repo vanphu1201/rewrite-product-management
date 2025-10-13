@@ -128,3 +128,26 @@ if (imgInput) {
     
 }
 // end upload image
+
+
+
+// sort
+const sort = document.querySelector("[sort]");
+if (sort) {
+    let url = new URL(window.location.href);
+    const sortSelect = sort.querySelector("[sort-select]");
+    const sortClear = sort.querySelector("[sort-clear]");
+
+
+    // sort select
+    sortSelect.addEventListener("change", (e) => {
+        const value = e.target.value;
+        const [sortKey, sortValue] = value.split("-")
+        url.searchParams.set("sortKey", sortKey);
+        url.searchParams.set("sortValue", sortValue);
+        window.location.href = url.href;
+    })
+    // end sort select
+    
+}
+// end sort

@@ -7,22 +7,45 @@ block main
   +alertSuccess(5000)
   +alertDanger(5000)
   .card.mb-3
-  .card-header Bộ lọc và Tìm kiếm
-  .card-body
-    .row 
-      +filter-status(filterStatus)
-      .col-6
-        form#form-search
-          .input-group
-              input(
-                type="text" 
-                placeholder="Nhập từ khóa" 
-                name="keyword" 
-                class="form-control" 
-                value=`${keyword ? keyword : ""}`
-                btn-form-search)
-              .input-group-append
-                  button(class="btn btn-success" type="submit" input-form-search ) Tìm
+    .card-header Bộ lọc và Tìm kiếm
+    .card-body
+      .row 
+        +filter-status(filterStatus)
+        .col-6
+          form#form-search
+            .input-group
+                input(
+                  type="text" 
+                  placeholder="Nhập từ khóa" 
+                  name="keyword" 
+                  class="form-control" 
+                  value=`${keyword ? keyword : ""}`
+                  btn-form-search)
+                .input-group-append
+                    button(class="btn btn-success" type="submit" input-form-search ) Tìm
+  .card.mb-3
+      .card-header Sắp xếp
+      .card-body
+          .row
+              .col-4
+                div(sort)
+                    select(
+                        class="form-control"
+                        name="sort"
+                        sort-select
+                    )
+                        option(value="position-desc") Vị trí giảm dần
+                        option(value="position-asc") Vị trí tăng dần
+                        option(value="price-desc") Giá giảm dần
+                        option(value="price-asc") Giá tăng dần
+                        option(value="title-asc") Tiêu đề A - Z
+                        option(value="title-desc") Tiêu đề Z - A
+                
+                    button(
+                        class="btn btn-danger mt-2"
+                        sort-clear
+                    ) Clear
+  
   .card.mb-3
     .card-header Danh sách
     .card-body
