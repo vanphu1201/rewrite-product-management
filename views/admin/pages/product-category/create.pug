@@ -1,11 +1,12 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 
 block main
     h1(class="mb-4") Thêm danh mục sản phẩm mới
     
     form(
-        action=`/admin/product-category/create`
+        action=`/admin/products-category/create`
         id="form-create-product"
         method="POST"
         enctype="multipart/form-data"
@@ -32,9 +33,10 @@ block main
                 class="form-control"
             )
                 option(value="") -- Chọn danh mục cha --
+                div #{records}
                 if(records)
-                    each item in records
-                        option(value=item.id) #{item.title}
+                    +select-tree(records)
+
         div(class="form-group")
             label(for="desc") Mô tả
             textarea(

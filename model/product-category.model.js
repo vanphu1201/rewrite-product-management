@@ -4,7 +4,10 @@ mongoose.plugin(slug);
 const schema = new mongoose.Schema({
     title: String,
     description: String,
-    parentId: String,
+    parent_id: {
+        type: String,
+        default: ""
+    },
     thumbnail: String,
     status: String,
     position: Number,
