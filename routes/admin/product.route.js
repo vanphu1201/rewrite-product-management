@@ -42,6 +42,6 @@ route.post('/edit/:id',
     controller.editPOST
 );
 
-route.get('/detail/:id', controller.detail)
+route.get('/detail/:id', controller.detail);
 
 module.exports = route;

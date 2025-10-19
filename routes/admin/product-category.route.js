@@ -25,4 +25,12 @@ route.post('/create',
     controller.createPOST
 );
 
+route.get('/edit/:id', controller.edit);
+
+route.post(
+    '/edit/:id',
+    upload.single('thumbnail'),
+    uploadCloud.upload,
+    controller.editPost);
+
 module.exports = route;
