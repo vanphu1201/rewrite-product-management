@@ -48,3 +48,11 @@ module.exports.changeStatus = async(req, res) => {
 
     res.redirect(req.headers.referer);
 }
+
+// [POST] /admin/accounts/delete/:id/
+module.exports.delete = async(req, res) => {
+    const id = req.params.id;
+    await Account.updateOne({_id: id}, {deleted: true});
+
+    res.redirect(req.headers.referer);
+}

@@ -67,12 +67,19 @@ block main
                                 ) Sửa
                                 button(
                                     class="btn btn-danger btn-sm ml-1"
+                                    data-id-delete=item.id
                                 ) Xóa
     form(
         form-change-status-account
         action="",
         method="post"
-    ) 
+    )
+
+    form(
+        form-delete-account
+        action="",
+        method="post"
+    )
 
     script(src="/admin/js/account.js") 
 

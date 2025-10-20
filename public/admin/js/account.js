@@ -1,3 +1,4 @@
+// Change status accont
 const btnsStatus = document.querySelectorAll("a[data-status-account");
 if (btnsStatus.length) {
     const formChangeStatusAccount = document.querySelector("[form-change-status-account]");
@@ -14,3 +15,22 @@ if (btnsStatus.length) {
         })
     })
 }
+// End change status account
+
+
+// Delete account
+const btnDeleteAccount = document.querySelectorAll("[data-id-delete]");
+if (btnDeleteAccount.length) {
+    const formDeleteAccount = document.querySelector("[form-delete-account]");
+
+    btnDeleteAccount.forEach(btn => {
+        btn.addEventListener("click", e => {
+            const id = btn.getAttribute("data-id-delete");
+
+            const action = `/admin/accounts/delete/${id}`;
+            formDeleteAccount.action = action;
+            formDeleteAccount.submit();
+        })
+    })
+}
+// End delete account

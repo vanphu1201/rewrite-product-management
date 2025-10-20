@@ -27,4 +27,6 @@ route.post('/create',
 
 route.post('/changeStatus/:id/:status', controller.changeStatus);
 
+route.post('/delete/:id', controller.delete);
+
 module.exports = route;
