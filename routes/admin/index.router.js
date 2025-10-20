@@ -3,6 +3,7 @@ const productRoute = require("./product.route");
 const productCategoryRoute = require("./product-category.route");
 const roleRoute = require("./role.route");
 const accountRoute = require("./account.route");
+const authRoute = require("./auth.route");
 
 
 module.exports = (app) => {
@@ -15,4 +16,7 @@ module.exports = (app) => {
     app.use('/admin/roles', roleRoute);
 
     app.use('/admin/accounts', accountRoute);
+
+    app.use('/admin/auth', authRoute);
+
 }
