@@ -29,4 +29,13 @@ route.post('/changeStatus/:id/:status', controller.changeStatus);
 
 route.post('/delete/:id', controller.delete);
 
+route.get('/edit/:id', controller.edit);
+
+route.post(
+    '/edit/:id', 
+    upload.single('avatar'),
+    uploadCloud.upload,
+    validate.createPOST,
+    controller.editPost);
+
 module.exports = route;

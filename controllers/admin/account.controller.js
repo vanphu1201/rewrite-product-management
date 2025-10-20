@@ -27,7 +27,7 @@ module.exports.create = async(req, res) => {
     res.render('admin/pages/accounts/create.pug', {
         title: 'Create accounts',
         roles: roles
-});
+    });
 }
 
 // [POST] /admin/accounts/create
@@ -53,6 +53,33 @@ module.exports.changeStatus = async(req, res) => {
 module.exports.delete = async(req, res) => {
     const id = req.params.id;
     await Account.updateOne({_id: id}, {deleted: true});
+
+    res.redirect(req.headers.referer);
+}
+
+
+// [GET] /admin/accounts/edit/:id
+module.exports.edit = async(req, res) => {
+    const id = req.params.id;
+    const record = await Account.findOne({_id: id});
+    const roles = await Role.find({deleted: false});
+    res.render('admin/pages/accounts/edit.pug', {
+        title: 'Edit accounts',
+        record: record,
+        roles: roles
+    });
+}
+
+// [POST] /admin/accounts/edit/:id/
+module.exports.editPost = async(req, res) => {
+    
+    const id = req.params.id;
+    if (req.body.password != "") {
+        req.body.password = md5(req.body.password);
+    } else {
+        delete req.body.password;
+    }
+    await Account.updateOne({_id: id}, req.body);
 
     res.redirect(req.headers.referer);
 }
