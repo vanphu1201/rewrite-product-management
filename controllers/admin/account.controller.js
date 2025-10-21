@@ -72,14 +72,25 @@ module.exports.edit = async(req, res) => {
 
 // [POST] /admin/accounts/edit/:id/
 module.exports.editPost = async(req, res) => {
-    
     const id = req.params.id;
-    if (req.body.password != "") {
-        req.body.password = md5(req.body.password);
-    } else {
-        delete req.body.password;
-    }
-    await Account.updateOne({_id: id}, req.body);
+    let emailExist = await Account.find({
+        _id : { $ne: id},
+        deleted: false,
+        email: req.body.email
+    });
 
+    if (emailExist.length) {
+        req.flash("danger", `Email ${req.body.email} đã tồn tại`);
+    } else {
+        if (req.body.password != "") {
+        req.body.password = md5(req.body.password);
+        } else {
+            delete req.body.password;
+        }
+        req.flash("success", "Cập nhập tài khoản thành công")
+        await Account.updateOne({_id: id}, req.body);
+    }
     res.redirect(req.headers.referer);
+
+    
 }

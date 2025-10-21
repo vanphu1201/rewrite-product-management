@@ -36,9 +36,10 @@ block main
 
     script(src="/admin/js/product.js")
 
-    a(
-        href=`/admin/products/edit/${product.id}`
-        class="btn btn-warning btn-sm"
-        edit
-        data-id=product.id
-    ) Sửa
+    if (role.permissions.includes("products_edit"))
+        a(
+            href=`/admin/products/edit/${product.id}`
+            class="btn btn-warning btn-sm"
+            edit
+            data-id=product.id
+        ) Sửa
