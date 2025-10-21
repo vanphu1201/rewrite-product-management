@@ -19,6 +19,6 @@ module.exports = (app) => {
 
     app.use('/admin/accounts', authMiddleware.requireAuth, accountRoute);
 
-    app.use('/admin/auth', authMiddleware.requireAuth, authRoute);
+    app.use('/admin/auth', authRoute);
 
 }
