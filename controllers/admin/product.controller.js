@@ -1,4 +1,5 @@
 const Product = require("../../model/products.model");
+const Account = require("../../model/account.model");
 const filterStatusHelper = require("../../helpers/filterStatus.helper");
 const formSearchHelper = require("../../helpers/formSearch.helper");
 const paginationHelper = require("../../helpers/pagination.helper");
@@ -40,6 +41,14 @@ module.exports.index = async (req, res) => {
     .limit(paginationObject.limit)
     .skip(paginationObject.skip)
     .sort(sort);
+
+  for (const product of products) {
+    const user = await Account.findOne({_id: product.createdBy.account_id});
+    if (user) {
+      product.fullNameUser = user.fullName;
+    }
+    
+  }
 
   res.render('admin/pages/products/index.pug', {
     title: 'Products',
@@ -118,6 +127,10 @@ module.exports.createPOST = async (req, res ) => {
     req.body.position = parseInt(req.body.position);
   } else {
     req.body.position = 1
+  }
+
+  req.body.createdBy = {
+    account_id: res.locals.user.id
   }
   
   const newProduct = new Product(req.body);

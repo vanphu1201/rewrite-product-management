@@ -10,11 +10,17 @@ const schema = new mongoose.Schema({
     thumbnail: String,
     status: String,
     position: Number,
+    createdBy: {
+        account_id: String,
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
+    },
     deleted: {
         type: Boolean,
         default: false
     },
-    created_at: { type: Date, required: true, default: Date.now },
     slug: { type: String, slug: "title", unique: true}
 
 });

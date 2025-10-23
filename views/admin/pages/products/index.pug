@@ -69,6 +69,7 @@ block main
                 th Tiêu đề
                 th Giá
                 th Vị trí
+                th NgƯời tạo
                 th Trạng thái
                 th Hành động
             tbody
@@ -98,7 +99,7 @@ block main
                         min="1"
                         name="position"
                       )
-                    
+                    td #{item.fullNameUser}
                     td
                       if (role.permissions.includes("products_edit"))
                         if (item.status == "active")
