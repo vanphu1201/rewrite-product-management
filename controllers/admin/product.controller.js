@@ -104,7 +104,15 @@ module.exports.changeStatus = async (req, res ) => {
 // [DELETE]/admin/products/delete/:id
 module.exports.deleteProduct = async (req, res ) => {
   const id = req.params.id;
-  await Product.updateOne({_id: id}, {deleted: true});
+
+  await Product.updateOne({_id: id}, {
+    deleted: true,
+    deletedBy:{
+      account_id: res.locals.user.id,
+      deletedAt: new Date()
+    }
+  },);
+
   req.flash('success', 'Xóa sản phẩm thành công');
   res.redirect(req.headers.referer);
 }
