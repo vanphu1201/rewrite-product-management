@@ -186,3 +186,32 @@ module.exports.detail = async (req, res) => {
     product: productDetail
   })
 }
+
+// [GET]/admin/products/detail/:id
+module.exports.restore = async (req, res) => {
+  const products = await Product.find({deleted: true});
+  for(const product of products) {
+    const accountDeleted = await Account.findOne({_id: product.deletedBy.account_id});
+    const accountCreated = await Account.findOne({_id: product.createdBy.account_id});
+    if (accountDeleted) {
+      product.fullNameDelete = accountDeleted.fullName;
+    }
+    if (accountCreated) {
+      product.fullNameCreate = accountCreated.fullName;
+    }
+    
+  }
+  res.render('admin/pages/products/restore.pug', {
+    products: products
+  })
+}
+
+
+// [POST]/admin/products/restore/:id
+module.exports.restorePost = async (req, res) => {
+  const id = req.params.id;
+
+  const productRestore = await Product.updateOne({_id: id}, {deleted: false});
+
+  res.redirect("/admin/products");
+}

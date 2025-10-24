@@ -44,4 +44,8 @@ route.post('/edit/:id',
 
 route.get('/detail/:id', controller.detail);
 
+route.get('/restore', controller.restore);
+
+route.get('/restore/:id', controller.restorePost);
+
 module.exports = route;

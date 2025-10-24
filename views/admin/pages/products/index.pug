@@ -28,7 +28,7 @@ block main
         .card-header Sắp xếp
         .card-body
             .row
-                .col-4
+                .col-8
                   div(sort)
                       select(
                           class="form-control"
@@ -46,6 +46,12 @@ block main
                           class="btn btn-danger mt-2"
                           sort-clear
                       ) Clear
+                .col-4 
+                    a(
+                      href=`/admin/products/restore`
+                      class="btn btn-primary btn-sm"
+                      restore
+                    ) Thùng rác
     
     .card.mb-3
       .card-header Danh sách
