@@ -15,6 +15,10 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 // end body parse
 
+// Moment
+const moment = require('moment');
+// End moment
+
 // cookie-parse and express-section
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -67,6 +71,8 @@ database();
 // route
 Route(app);
 RouteAdmin(app);
+
+app.locals.moment = moment;
 
 
 app.listen(port, () => {

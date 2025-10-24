@@ -99,7 +99,9 @@ block main
                         min="1"
                         name="position"
                       )
-                    td #{item.fullNameUser}
+                    td 
+                      p #{item.fullNameUser}
+                      p #{moment(item.createdBy.createdAt).format('DD MM YYYY, h:mm:ss')}
                     td
                       if (role.permissions.includes("products_edit"))
                         if (item.status == "active")
