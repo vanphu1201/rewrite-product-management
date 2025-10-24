@@ -75,7 +75,13 @@ module.exports.changMulti = async (req, res ) => {
       res.redirect(req.headers.referer);
       break;
     case "delete":
-      await Product.updateMany({_id: {$in: ids}}, {deleted: true});
+      await Product.updateMany({_id: {$in: ids}}, {
+        deleted: true,
+        deletedBy: {
+          account_id: res.locals.user.id,
+          deteledAt: new Date()
+        }
+      });
       req.flash('danger', `Xóa thành công ${ids.length} sản phẩm`);
       res.redirect(req.headers.referer);
       break;
