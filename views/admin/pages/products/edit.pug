@@ -21,6 +21,26 @@ block main
                     name="title"
                     value=`${product.title}`
                 )
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured1"
+                    name="featured"
+                    value="1"
+                    checked=(product.featured=="1" ? true : false)
+                )
+                label(for="featured1" class="form-check-label") Nổi bật
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured0"
+                    name="featured"
+                    value="0"
+                    checked=(product.featured=="0" ? true : false)
+                )
+                label(for="featured0" class="form-check-label") Không
             div(class="form-group")
                 label(for="desc") Mô tả
                 textarea(
@@ -88,7 +108,7 @@ block main
                     id="statusActive"
                     name="status"
                     value="active"
-                    checked=`${product.status == "active" ? true : false}`
+                    checked=(product.status == "active" ? true : false)
                 )
                 label(for="statusActive" class="form-check-label") Hoạt động
             div(class="form-group form-check form-check-inline")
@@ -98,7 +118,7 @@ block main
                     id="statusInActive"
                     name="status"
                     value="inactive"
-                    checked=`${product.status == "inactive" ? true : false}`
+                    checked=(product.status == "inactive" ? true : false)
                 )
                 label(for="statusInActive" class="form-check-label") Dừng hoạt động
             div(class="form-group")
