@@ -7,7 +7,28 @@ block main
                 .box-head
                     h2.inner-title Sản phẩm nổi bật
         .row
-            each item in products
+            each item in productsFeatured
+                .col-4.mb-3
+                    a(href=`/products/detail/${item.slug}`) 
+                        .product-item
+                            .inner-image
+                                img(src=item.thumbnail, alt=item.title)
+                                if(item.featured == "1")
+                                    .inner-featured Nổi bật
+                            .inner-content
+                                h3.inner-title #{item.title}
+                                .inner-price-new #{item.newPrice}$
+                                .inner-price-old #{item.price}$
+                                .inner-discount -#{item.discountPercentage}%
+
+
+    .container.my-3
+        .row
+            .col-12
+                .box-head
+                    h2.inner-title Sản phẩm mới
+        .row
+            each item in productsNew
                 .col-4.mb-3
                     a(href=`/products/detail/${item.slug}`) 
                         .product-item
