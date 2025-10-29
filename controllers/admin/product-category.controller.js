@@ -1,4 +1,5 @@
 const productCategory = require("../../model/product-category.model");
+const createTreeHelepr = require("../../helpers/createTree");
 
 // [GET] /admin/product-category
 module.exports.index = async(req, res) => {
@@ -8,9 +9,12 @@ module.exports.index = async(req, res) => {
 
     const records = await productCategory.find(find);
 
+    const newRecords = createTreeHelepr.tree(records);
+    console.log(newRecords)
+
     res.render('admin/pages/product-category/index.pug', {
         title: 'Product category',
-        records: records
+        records: newRecords
 });
 }
 
@@ -19,24 +23,11 @@ module.exports.index = async(req, res) => {
 module.exports.create = async (req, res) => {
   const find = { deleted: false };
 
-function createTree(arr, parentId = "") {
-  const tree = [];
-  arr.forEach((item) => {
-    if (item.parent_id === parentId) {
-      const newItem = item;
-      const children = createTree(arr, item.id);
-      if (children.length > 0) {
-        newItem.children = children;
-      }
-      tree.push(newItem);
-    }
-  });
-  return tree;
-}
+// treeeee
 
 const records = await productCategory.find(find);
 
-const newRecords = createTree(records);
+const newRecords = createTreeHelepr.tree(records);
 
 
   res.render("admin/pages/product-category/create", {
@@ -64,24 +55,11 @@ module.exports.createPOST = async (req, res ) => {
 module.exports.edit = async (req, res ) => {
   const find = { deleted: false };
 
-  function createTree(arr, parentId = "") {
-    const tree = [];
-    arr.forEach((item) => {
-      if (item.parent_id === parentId) {
-        const newItem = item;
-        const children = createTree(arr, item.id);
-        if (children.length > 0) {
-          newItem.children = children;
-        }
-        tree.push(newItem);
-      }
-    });
-    return tree;
-  }
 
 const records = await productCategory.find(find);
 
-const newRecords = createTree(records);
+const newRecords = createTreeHelepr.tree(records);
+
 const record = await productCategory.findOne({_id: req.params.id})
   res.render("admin/pages/product-category/edit.pug", {
     pageTitle: "Chỉnh sửa danh mục sản phẩm",

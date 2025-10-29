@@ -75,7 +75,8 @@ block main
                 th Tiêu đề
                 th Giá
                 th Vị trí
-                th NgƯời tạo
+                th Người tạo
+                th Người sửa mới nhất
                 th Trạng thái
                 th Hành động
             tbody
@@ -106,8 +107,15 @@ block main
                         name="position"
                       )
                     td 
-                      p #{item.fullNameUser}
+                      p #{item.fullNameUserCreate}
                       p #{moment(item.createdBy.createdAt).format('DD MM YYYY, h:mm:ss')}
+                    td 
+                      - const updatedBy = item.updatedBy[item.updatedBy.length - 1];
+                      - if (updatedBy) 
+                          p #{item.fullNameUserUpdate}
+                          p #{moment(updatedBy.updatedAt).format('DD MM YYYY, h:mm:ss')}
+                      - else 
+                          p Chưa có người chỉnh sửa
                     td
                       if (role.permissions.includes("products_edit"))
                         if (item.status == "active")

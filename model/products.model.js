@@ -25,6 +25,13 @@ const schema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    updatedBy: [
+        {
+            account_id: String,
+            updatedAt: Date
+        }
+    ],
+        
     slug: { type: String, slug: "title", unique: true}
 
 });
