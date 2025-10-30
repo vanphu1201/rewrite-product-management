@@ -24,6 +24,9 @@ module.exports.index = async (req, res) => {
 //[GET] products/detail/:slugProduct
 module.exports.detailProduct = async (req, res) => {
     const productDetail = await Product.findOne({slug: req.params.slugProduct});
+
+    productDetail.priceNew = (productDetail.price * (100 - productDetail.discountPercentage) / 100).toFixed(0);
+
     res.render('client/pages/products/detail.pug', {
         product: productDetail
     });
