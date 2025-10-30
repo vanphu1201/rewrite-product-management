@@ -1,5 +1,7 @@
 const homeRoute = require("./home");
 const productsRoute = require("./products");
+const searchRoute = require("./search");
+
 const subMenu = require("../../middlewares/client/category");
 
 module.exports = (app) => {
@@ -8,4 +10,6 @@ module.exports = (app) => {
     app.use('/', homeRoute);
 
     app.use('/products', productsRoute);
+    
+    app.use("/search", searchRoute)
 }
