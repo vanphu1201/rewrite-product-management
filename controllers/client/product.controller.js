@@ -57,7 +57,6 @@ module.exports.detailCategory = async (req, res) => {
     
     const listSubCategoryId = subCategory.map(item => item.id);
     
-    console.log(listSubCategoryId)
     const products = await Product.find({
         product_category_id: {$in: [category,...listSubCategoryId]},
         deleted: false,
