@@ -2,6 +2,7 @@ const homeRoute = require("./home");
 const productsRoute = require("./products");
 const searchRoute = require("./search");
 const cartRoute = require("./cart");
+const checkoutRoute = require("./checkout");
 
 const subMenu = require("../../middlewares/client/category");
 const cartMiddleware = require("../../middlewares/client/cart");
@@ -18,4 +19,6 @@ module.exports = (app) => {
     app.use("/search", searchRoute);
 
     app.use("/cart", cartRoute);
+
+    app.use("/checkout", checkoutRoute);
 }
