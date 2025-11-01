@@ -9,4 +9,6 @@ route.get("/", controller.index);
 
 route.get("/change-quantity/:productId/:quantity", controller.changeQuantity);
 
+route.get("/delete/:productId", controller.delete);
+
 module.exports = route;
