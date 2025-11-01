@@ -50,3 +50,14 @@ module.exports.index = async (req, res) => {
         cart: cart
     })
 }
+
+// [GET] /cart/change-quantity/:productId/:quantity
+module.exports.changeQuantity = async (req, res) => {
+    const productId = req.params.productId;
+    const quantity = req.params.quantity;
+    const cartId = req.cookies.cartId;
+
+    await Cart.updateOne({_id: cartId, "products.product_id": productId}, {$set: {"products.$.quantity": quantity}});
+
+    res.redirect(req.headers.referer);
+}

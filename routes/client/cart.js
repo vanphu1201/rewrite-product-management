@@ -7,4 +7,6 @@ route.post("/add/:id", controller.addPost);
 
 route.get("/", controller.index);
 
+route.get("/change-quantity/:productId/:quantity", controller.changeQuantity);
+
 module.exports = route;
