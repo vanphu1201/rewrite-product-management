@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const orderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema(
+    {
         cart_id: String,
         userInfo: {
             fullName: String,
@@ -13,7 +14,11 @@ const orderSchema = new mongoose.Schema({
                 discountPercentage: Number,
                 quantity: Number,
             }
-        ]
+        ],
+        deleted: {
+            type: String,
+            default: false
+        }
     },
     {
         timestamps: true
