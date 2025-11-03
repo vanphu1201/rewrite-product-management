@@ -22,7 +22,7 @@ module.exports.addPost = async (req, res) => {
         }}})
     }
 
-    req.flash("success", "Đặt hàng thành công!")
+    req.flash("success", "Thêm vào giỏ hàng thành công!")
 
     res.redirect(req.headers.referer);
 }
