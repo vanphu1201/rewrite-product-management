@@ -5,7 +5,7 @@ const User = require("../../model/user.model");
 // [GET] /user/register
 module.exports.register = async (req, res) => {
     res.render("client/pages/user/register.pug", {
-        title: "register"
+        title: "Register"
     })
 }
 
@@ -30,4 +30,41 @@ module.exports.registerPost = async (req, res) => {
 
         res.redirect("/");
     }
+}
+
+
+// [GET] /user/login
+module.exports.login = async (req, res) => {
+    res.render("client/pages/user/login.pug", {
+        title: "Login"
+    })
+}
+
+
+
+// [POST] /user/login
+module.exports.loginPost = async (req, res) => {
+    const user = await User.findOne({
+        email: req.body.email,
+        deleted: false
+    });
+
+    if (!user) {
+        req.flash("danger", `Email ${req.body.email} không tồn tại!`);
+        res.redirect(req.headers.referer);
+        return;
+    }
+    if (user.password !== md5(req.body.password)) {
+        req.flash("danger", `Sai mật khẩu!`);
+        res.redirect(req.headers.referer);
+        return;
+    }
+    if (user.status == "inactive") {
+        req.flash("danger", `Tài khoản đã bị khóa!`);
+        res.redirect(req.headers.referer);
+        return;
+    }
+    res.cookie("tokenUser", user.tokenUser);
+
+    res.redirect("/");
 }
