@@ -32,7 +32,6 @@ route.get("/password/reset", controller.reset);
 
 route.post("/password/reset", resetValidate.resetPost, controller.resetPost);
 
-
-
+route.get("/info", controller.info);
 
 module.exports = route;

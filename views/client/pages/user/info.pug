@@ -1,0 +1,36 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+        .row.mt-4
+            .col-md-6.offset-md-3
+                .card.shadow-sm
+                    .card-body
+                        h4.text-success.mb-3 Thông tin người dùng
+
+                        table.table
+                            tbody
+                                tr
+                                    th(style="width: 40%") Họ và tên:
+                                    td #{user.fullName}
+
+                                tr
+                                    th Email:
+                                    td #{user.email}
+
+                                tr
+                                    th Trạng thái:
+                                    td 
+                                        if user.status == "active"
+                                            span.text-success Hoạt động
+                                        else
+                                            span.text-danger Không hoạt động
+
+                                tr
+                                    th Ngày tạo:
+                                    td #{user.createdAt.toLocaleString('vi-VN')}
+
+                                tr
+                                    th Cập nhật lần cuối:
+                                    td #{user.updatedAt.toLocaleString('vi-VN')}
+
