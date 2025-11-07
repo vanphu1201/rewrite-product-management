@@ -18,3 +18,6 @@
             if (role.permissions.includes("accounts_view"))
                 li
                     a(href="/admin/accounts") Danh sách tài khoản
+            if (role.permissions.includes("setting_general"))
+                li
+                    a(href="/admin/settings/general") Cài đặt chung

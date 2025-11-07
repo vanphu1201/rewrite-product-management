@@ -8,6 +8,8 @@ const userRoute = require("./user");
 const subMenu = require("../../middlewares/client/category");
 const cartMiddleware = require("../../middlewares/client/cart");
 const userMiddleware = require("../../middlewares/client/user.middleware");
+const settingsGeneralMiddleware = require("../../middlewares/client/settings-general.middleware");
+
 
 module.exports = (app) => {
     app.use(subMenu.category);
@@ -15,6 +17,8 @@ module.exports = (app) => {
     app.use(cartMiddleware.cart);
 
     app.use(userMiddleware.user);
+
+    app.use(settingsGeneralMiddleware.settingsGeneral);
 
     app.use('/', homeRoute);
 
