@@ -357,3 +357,118 @@ a:hover {
   cursor: pointer;
 }
 
+
+
+/* --- CSS cho Giao diện Chat (.chat) --- */
+
+/* Khung chính của Chat */
+.chat {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: hidden; /* Dùng để chứa inner-body và inner-foot */
+}
+
+/* Khu vực chứa tin nhắn */
+.chat .inner-body {
+  padding: 15px;
+  max-height: 450px; /* Giới hạn chiều cao và cho phép cuộn */
+  overflow-y: auto;
+}
+
+/* Các tin nhắn đến (Bên trái) */
+.chat .inner-incoming {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+.chat .inner-incoming .inner-name {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+.chat .inner-incoming .inner-content {
+  background-color: #f0f0f0; /* Màu xám nhạt */
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 18px;
+  border-top-left-radius: 4px; /* Góc trên bên trái nhỏ hơn */
+  max-width: 85%;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* Các tin nhắn đi (Bên phải) */
+.chat .inner-outgoing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 15px;
+}
+.chat .inner-outgoing .inner-content {
+  /* Màu hồng / đỏ tươi cho tin nhắn đi */
+  background-color: #ff80a0;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 18px;
+  border-top-right-radius: 4px; /* Góc trên bên phải nhỏ hơn */
+  max-width: 85%;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+/* Loại bỏ inner-name trong tin nhắn outgoing nếu không dùng */
+.chat .inner-outgoing .inner-name {
+  display: none;
+}
+
+
+/* --- Khu vực Footer và Form nhập liệu --- */
+
+.chat .inner-foot {
+  border-top: 1px solid #eee;
+  padding: 10px 15px;
+  background-color: #f9f9f9;
+}
+
+.chat .inner-form {
+  display: flex;
+  align-items: center;
+}
+
+.chat .inner-form input[type="text"] {
+  flex-grow: 1; /* Chiếm hết không gian còn lại */
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  margin-right: 10px;
+  outline: none;
+}
+.chat .inner-form input[type="text"]:focus {
+  border-color: #ff80a0;
+}
+
+.chat .inner-form button {
+  background-color: #ff80a0; /* Màu hồng tương tự tin nhắn đi */
+  color: #fff;
+  border: none;
+  border-radius: 50%; /* Hình tròn */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.2s;
+}
+
+.chat .inner-form button:hover {
+  background-color: #dc3545; /* Màu đỏ đậm hơn khi hover */
+}
