@@ -27,6 +27,17 @@ const session = require('express-session');
 const app = express();
 const port = process.env.PORT;
 
+// socketIO
+const http = require('http');
+const server = http.createServer(app);
+
+const { Server } = require("socket.io");
+const io = new Server(server);
+global._io = io;
+
+// End socketIO
+
+
 // express-flash
 app.use(cookieParser('keyboard cat'));
 app.use(session({ cookie: { maxAge: 60000 }}));
@@ -75,6 +86,6 @@ RouteAdmin(app);
 app.locals.moment = moment;
 
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 })
