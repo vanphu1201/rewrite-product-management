@@ -472,3 +472,14 @@ a:hover {
 .chat .inner-form button:hover {
   background-color: #dc3545; /* Màu đỏ đậm hơn khi hover */
 }
+
+/* show emotion icon */
+.tooltip {
+  visibility: hidden;
+}
+
+.tooltip.shown {
+  visibility: visible;
+  opacity: 1;
+}
+/* show emotion icon */

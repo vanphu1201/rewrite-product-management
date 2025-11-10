@@ -1,3 +1,5 @@
+import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js'
+
 const formSubmitChat = document.querySelector(".chat .inner-foot .inner-form");
 if (formSubmitChat) {
     formSubmitChat.addEventListener("submit", e => {
@@ -38,3 +40,20 @@ if (bodyChat) {
 }
 // end default message bottom
 
+// ICON EMTION PICKER CHAT
+const buttonIcon = document.querySelector('span[button-icon]');
+const tooltip = document.querySelector('.tooltip');
+Popper.createPopper(buttonIcon, tooltip);
+buttonIcon.onclick = () => {
+    tooltip.classList.toggle('shown');
+}
+
+
+
+const emojiPicker = document.querySelector('emoji-picker');
+emojiPicker.addEventListener('emoji-click', e => {
+    const icon = e.detail.unicode;
+    const inputContentChat = document.querySelector(".chat .inner-foot input[name='content']");
+    inputContentChat.value = inputContentChat.value + icon
+});
+// END ICON EMTION PICKER CHAT
