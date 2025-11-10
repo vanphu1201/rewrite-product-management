@@ -11,6 +11,7 @@ const subMenu = require("../../middlewares/client/category");
 const cartMiddleware = require("../../middlewares/client/cart");
 const userMiddleware = require("../../middlewares/client/user.middleware");
 const settingsGeneralMiddleware = require("../../middlewares/client/settings-general.middleware");
+const authMiddleware = require("../../middlewares/client/auth.middleware");
 
 
 module.exports = (app) => {
@@ -34,5 +35,5 @@ module.exports = (app) => {
 
     app.use("/user", userRoute);
 
-    app.use("/chat", chatRoute);
+    app.use("/chat", authMiddleware.requireAuth, chatRoute);
 }

@@ -1,19 +1,23 @@
-const mongoose = require('mongoose');
+const { default: mongoose } = require("mongoose");
+
 const chatSchema = new mongoose.Schema(
     {
         user_id: String,
-        rom_chat_id: String,
+        room_chat_id: String,
         content: String,
         images: Array,
         deleted: {
             type: Boolean,
             default: false
-        }
+        },
+        deletedAt: Date
     },
     {
         timestamps: true
-    })
+    }
+);
 
-const Chat = mongoose.model('Chat', chatSchema, 'chats');
+const Chat = mongoose.model('Chat', chatSchema, "chats")
+
 
 module.exports = Chat;
