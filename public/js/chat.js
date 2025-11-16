@@ -8,6 +8,7 @@ if (formSubmitChat) {
         const content = inputContentChat.value;
         socket.emit("CLIENT_SEND MESSAGE", content);
         inputContentChat.value = "";
+        socket.emit("CLIENT_SEND_TYPING", "hidden");
     })
 }
 
@@ -15,7 +16,8 @@ if (formSubmitChat) {
 socket.on("SEVER_RETURN_DATA", (data) => {
     const myId = document.querySelector("[myId]").getAttribute("myId");
     const body = document.querySelector(".inner-body");
-    let htmlName = ""
+    let htmlName = "";
+
     const div = document.createElement("div");
     if (myId == data.user_id) {
         div.classList.add("inner-outgoing");
@@ -28,7 +30,8 @@ socket.on("SEVER_RETURN_DATA", (data) => {
         <div class="inner-name" >${htmlName}</div>
         <div class="inner-content">${data.content}</div>
     `;
-    body.appendChild(div);
+    const innerListTyping = document.querySelector(".inner-list-typing");
+    body.insertBefore(div, innerListTyping);
     body.scrollTop = body.scrollHeight;
 })
 // END SEVER_RETURN_DATA
@@ -39,6 +42,21 @@ if (bodyChat) {
     bodyChat.scrollTop = bodyChat.scrollHeight;
 }
 // end default message bottom
+
+
+// Function status typing
+var timeOut;
+const statusTyping = () => {
+    socket.emit("CLIENT_SEND_TYPING", "show");
+
+    clearTimeout(timeOut);
+
+    setTimeout(() => {
+        socket.emit("CLIENT_SEND_TYPING", "hidden");
+    }, 3000); 
+}
+// End function status typing
+
 
 // ICON EMTION PICKER CHAT
 const buttonIcon = document.querySelector('span[button-icon]');
@@ -54,6 +72,47 @@ const emojiPicker = document.querySelector('emoji-picker');
 emojiPicker.addEventListener('emoji-click', e => {
     const icon = e.detail.unicode;
     const inputContentChat = document.querySelector(".chat .inner-foot input[name='content']");
-    inputContentChat.value = inputContentChat.value + icon
+    inputContentChat.value = inputContentChat.value + icon;
+    statusTyping();
 });
 // END ICON EMTION PICKER CHAT
+
+// TYPING
+const inputTyping = document.querySelector(`.inner-foot input[name="content"]`);
+if (inputTyping) {
+    inputTyping.addEventListener("keyup", (e) => {
+        statusTyping();
+    });
+    socket.on("SERVE_RETURN_TYPING", (data) => {
+        if (data.type == "show") {
+            const boxTyping = bodyChat.querySelector(".box-typing");
+            if (!boxTyping) {
+                const div = document.createElement("div");
+                div.classList.add("box-typing");
+                const innerListTyping = document.querySelector(".inner-list-typing");
+                div.innerHTML = `
+                    <div class="inner-name">${data.fullName}</div>
+                    <div class="inner-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                `;
+                const bodyChat = document.querySelector(".inner-body");
+                innerListTyping.appendChild(div);
+                bodyChat.scrollTop = bodyChat.scrollHeight;
+            }
+            
+        } else {
+            const bodyChat = document.querySelector(".inner-body");
+            const innerListTyping = bodyChat.querySelector(`.inner-list-typing`);
+            const boxTyping = bodyChat.querySelector(".box-typing");
+            if (boxTyping){
+                innerListTyping.removeChild(boxTyping);
+            }
+            
+        }
+
+    })
+}
+// END TYPING

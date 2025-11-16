@@ -20,6 +20,9 @@ block main
                                 .inner-name #{chat.infoUser.fullName}
                             .inner-content
                                 | #{chat.content}
+
+                    div(class="inner-list-typing" user-id=user.id)
+
                 .inner-foot
                     form(
                         class="inner-form"
