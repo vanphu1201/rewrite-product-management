@@ -1,6 +1,7 @@
 import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js'
 import { FileUploadWithPreview } from 'https://unpkg.com/file-upload-with-preview/dist/index.js';
 
+
 const upload = new FileUploadWithPreview('upload-images', {
     multiple: true,
     showDeleteButtonOnImages: true,
@@ -53,7 +54,7 @@ socket.on("SEVER_RETURN_DATA", (data) => {
         
         for (const link of data.images) {
             htmlImages += `
-                <img src="${link}"
+                <img src="${link}">
             `;
         }
 
@@ -71,6 +72,7 @@ socket.on("SEVER_RETURN_DATA", (data) => {
     const innerListTyping = document.querySelector(".inner-list-typing");
     body.insertBefore(div, innerListTyping);
     body.scrollTop = body.scrollHeight;
+    const gallery = new Viewer(div);
 })
 // END SEVER_RETURN_DATA
 
@@ -154,3 +156,11 @@ if (inputTyping) {
     })
 }
 // END TYPING
+
+// SHOW IMAGES FULL SCREEN
+const bodyChatPreviewImages = document.querySelector(".chat .inner-images");
+if (bodyChatPreviewImages) {
+    const gallery = new Viewer(bodyChatPreviewImages);
+
+}
+// END SHOW IMAGES FULL SCREEN

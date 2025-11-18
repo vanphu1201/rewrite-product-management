@@ -10,6 +10,7 @@ html(lang="en")
         link(rel="stylesheet", href="/css/style.css")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
         link(rel="stylesheet", href="https://unpkg.com/file-upload-with-preview/dist/style.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.css")
     body 
 
         include ../partials/header.pug
@@ -33,6 +34,11 @@ html(lang="en")
         //- emotion picker
         script(type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js") 
         //- end emotion picker
+
+        //- Wiewerjs
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.js") 
+        //- End Wiewerjs
+
 
         script(type="module" src="/js/chat.js")
 
