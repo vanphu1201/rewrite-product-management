@@ -1,4 +1,11 @@
 import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js'
+import { FileUploadWithPreview } from 'https://unpkg.com/file-upload-with-preview/dist/index.js';
+
+const upload = new FileUploadWithPreview('upload-images', {
+    multiple: true,
+    showDeleteButtonOnImages: true,
+    maxFileCount: 6, 
+});
 
 const formSubmitChat = document.querySelector(".chat .inner-foot .inner-form");
 if (formSubmitChat) {
@@ -6,9 +13,16 @@ if (formSubmitChat) {
         e.preventDefault();
         const inputContentChat = document.querySelector(".chat .inner-foot input[name='content']");
         const content = inputContentChat.value;
-        socket.emit("CLIENT_SEND MESSAGE", content);
-        inputContentChat.value = "";
-        socket.emit("CLIENT_SEND_TYPING", "hidden");
+        const images = upload.cachedFileArray;
+        if (images || content) {
+            socket.emit("CLIENT_SEND MESSAGE", {
+                content: content,
+                images: images
+            });
+            inputContentChat.value = "";
+            upload.resetPreviewPanel();
+            socket.emit("CLIENT_SEND_TYPING", "hidden");
+        }
     })
 }
 
@@ -17,6 +31,8 @@ socket.on("SEVER_RETURN_DATA", (data) => {
     const myId = document.querySelector("[myId]").getAttribute("myId");
     const body = document.querySelector(".inner-body");
     let htmlName = "";
+    let htmlContent = "";
+    let htmlImages = "";
 
     const div = document.createElement("div");
     if (myId == data.user_id) {
@@ -25,10 +41,32 @@ socket.on("SEVER_RETURN_DATA", (data) => {
         htmlName = data.fullName
         div.classList.add("inner-incoming");
     }
+    
+    if (data.content) {
+        htmlContent = `
+            <div class="inner-content">${data.content}</div>
+        `;
+    }
+
+    if (data.images.length) {
+        htmlImages += '<div class="inner-images">';
+        
+        for (const link of data.images) {
+            htmlImages += `
+                <img src="${link}"
+            `;
+        }
+
+        htmlImages += '</div>';
+
+    }
 
     div.innerHTML = `
         <div class="inner-name" >${htmlName}</div>
-        <div class="inner-content">${data.content}</div>
+        ${htmlContent}
+        ${htmlImages}
+
+        
     `;
     const innerListTyping = document.querySelector(".inner-list-typing");
     body.insertBefore(div, innerListTyping);
