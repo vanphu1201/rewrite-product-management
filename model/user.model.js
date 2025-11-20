@@ -11,7 +11,18 @@ const userSchema = new mongoose.Schema({
             default: generate.generateRandomString(20)
         },
         phone: String,
-        avatar: String,
+        avatar: {
+            type: String,
+            default: ""
+        },
+        requestFriends: Array,
+        acceptFriends: Array,
+        friendList: [
+            {
+                user_id: String,
+                room_chat_id: String
+            }
+        ],
         status: {
             type: String,
             default: "active"
