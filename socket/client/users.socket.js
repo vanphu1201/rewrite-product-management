@@ -1,7 +1,7 @@
 const User = require("../../model/user.model");
 
 module.exports = (req, res) => {
-    _io.on('connection', (socket) => {
+    _io.once('connection', (socket) => {
         // GỬI LỜI MỜI KẾT BẠN
         socket.on("CLIENT_ADD_FRIEND", async userId => {
             const myUserId = res.locals.user.id;
@@ -81,12 +81,67 @@ module.exports = (req, res) => {
                 requestFriends: myUserId
             });
             if (existAinB) {
-                await User.updateOne({_id: userId}, {$push: {requestFriends: myUserId}});
+                await User.updateOne({_id: userId}, {$pull: {requestFriends: myUserId}});
             }
             // Hết Xóa id của A vào requestFriend của B
 
         })
         // HẾT TỪ CHỐI LỜI MỜI KẾT BẠN
+
+
+
+        // CHẤP NHẬN LỜI MỜI KẾT BẠN
+        socket.on("CLIENT_ACCEPT_FRIEND", async userId => {
+            const myUserId = res.locals.user.id;
+            
+            // Thêm id của B trong friendList của A
+            const existBinA = await User.findOne({
+                _id: myUserId,
+                acceptFriends: userId
+            });
+            if (existBinA) {
+                await User.updateOne(
+                    {
+                        _id: myUserId
+                    },
+                    {
+                        $push: {
+                            friendList: {
+                                user_id: userId,
+                                room_chat_id: ""
+                            }
+                        },
+                        $pull: {acceptFriends: userId}
+                    }
+                );
+            }
+            // Hết Thêm id của B trong friendList của A
+
+            // Thêm id của A vào friendList của B
+            const existAinB = await User.findOne({
+                _id: userId,
+                requestFriends: myUserId
+            });
+            if (existAinB) {
+                await User.updateOne(
+                    {
+                        _id: userId
+                    }, 
+                    {
+                        $push: {
+                            friendList: {
+                                user_id: myUserId,
+                                room_chat_id: ""
+                            }
+                        },
+                        $pull: {requestFriends: myUserId}
+                    }
+                );
+            }
+            // Hết Thêm id của A vào friendList của B
+
+        })
+        // HẾT CHẤP NHẬN LỜI MỜI KẾT BẠN
 
 
     });

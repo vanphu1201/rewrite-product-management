@@ -635,6 +635,10 @@ a:hover {
   display: none;
 }
 
+.box-user [btn-accepted-friend] {
+  display: none;
+}
+
 .box-user.refuse [btn-accept-friend] {
   display: none;
 }
@@ -646,4 +650,19 @@ a:hover {
 .box-user.refuse [btn-deleted-friend] {
   display: inline-block;
 }
+
+.box-user.accepted [btn-accept-friend] {
+  display: none;
+}
+
+.box-user.accepted [btn-refuse-friend] {
+  display: none;
+}
+
+.box-user.accepted [btn-accepted-friend] {
+  display: inline-block;
+}
+
+
+
 /* End box-user */

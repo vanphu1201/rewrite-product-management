@@ -37,3 +37,17 @@ if (listBtnRefuseFriend.length) {
     })
 }
 // Hết từ chối lời mời kết bạn
+
+
+// Chấp nhận lời mời kết bạn
+const listBtnAcceptFriend = document.querySelectorAll("[btn-accept-friend]");
+if (listBtnAcceptFriend.length) {
+    listBtnAcceptFriend.forEach(button => {
+        button.addEventListener("click", e => {
+            button.closest(".box-user").classList.add("accepted");
+            const userId = button.getAttribute("btn-accept-friend");
+            socket.emit("CLIENT_ACCEPT_FRIEND", userId);
+        })
+    })
+}
+// Hết Chấp nhận lời mời kết bạn
